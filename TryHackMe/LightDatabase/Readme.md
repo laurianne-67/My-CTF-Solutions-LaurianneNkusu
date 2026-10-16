@@ -1,12 +1,12 @@
 # Capture The Flag — Write-up: Light Database (SQL Injection Bypass)
 
-## 📌 Résolution du Challenge & Retours d'Expérience
+## Résolution du Challenge & Retours d'Expérience
 
 Ce challenge consistait à exploiter une vulnérabilité d'injection SQL (SQLi) sur une application réseau simulant une base de données appelée **Light** (utilisant **SQLite** en arrière-plan). L'application demandait un `username`, construisait une requête SQL sans nettoyer correctement la saisie, puis l'exécutait. La principale difficulté résidait dans le contournement d'un filtre anti-injection (WAF).
 
 ---
 
-## 🛠️ Analyse de la Méthodologie Étape par Étape
+## Analyse de la Méthodologie Étape par Étape
 
 ### Étape 1 — Repérer la faille
 En testant un simple caractère d'injection comme `' OR 1=1--`, l'application a renvoyé une erreur de syntaxe différente des réponses "utilisateur non trouvé" habituelles. C'est le signe classique que l'apostrophe `'` casse la structure de la requête interne : l'application ne filtre pas (ou mal) les entrées.
